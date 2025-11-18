@@ -7,5 +7,5 @@ Please be aware that these things should not be limited to ONLY our meetings as 
 - Is there anything in particular you would like to bring up to the group?
 
 # Group
-- What is teh state of the project? 
+- What is the state of the project? 
 - Is the project still on track? If not, what needs to be done to get it on track?
