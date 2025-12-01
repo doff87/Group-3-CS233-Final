@@ -8,6 +8,8 @@ Dannika worked on implementing the client side looks of the application (Client 
 
 You can refer to the planning of the Figma design here:
 https://www.figma.com/design/1Go7Kibzn3ZIlcXXexVATO/CS233-Final?node-id=0-1&p=f&t=CSgbBWftpDXAwxHB-0
+This is the final creation of the Figma design with code provided:
+https://www.figma.com/make/tG6cjcZdaeJpmLl2Yaejqr/Foodie?node-id=0-1&p=f&t=NQ4jJjs0Z9BdL28w-0
 
 Joel and David worked on the Application layer and implementation of API's and the business logic controlling what happens when something in the client is interacted with.
 
