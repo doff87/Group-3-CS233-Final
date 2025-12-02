@@ -1,3 +1,37 @@
+# USDA Nutrition Search App
+
+A Node.js Express application that integrates with the USDA Food Data Central API to retrieve nutritional information including serving size, calories, protein, carbs, and fat.
+
+## Features
+
+- MVC architecture
+- Web client interface
+- API endpoint for programmatic access
+- Search for food items and get nutritional data
+
+## Setup
+
+1. Get an API key from [USDA Food Data Central](https://fdc.nal.usda.gov/api-key-signup.html)
+2. Create a `.env` file with:
+   ```
+   FDC_API_KEY=your_actual_api_key_here
+   PORT=3000
+   ```
+3. Install dependencies: `npm install`
+4. Start the server: `npm start`
+5. Open http://localhost:3000 in your browser
+
+## Usage
+
+- Enter a food name in the search box (e.g., "banana")
+- View the nutritional information displayed
+
+## API Endpoint
+
+GET /api/nutrition?query=food_name
+
+Returns JSON with nutritional data.
+
 # How the project worked:
 Amandaleeanne Took meeting notes, arranged meetings and took lead as PM for smooth transition. Not much can be shown for this other than the Meeting notes submitted in the Meeting notes folder. However, within the first meeting notes you can see the genreal timeline and what everyone should have been doing and contributing to the project.
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USDA Nutrition Search</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>USDA Food Nutrition Search</h1>
+    <form action="/search" method="POST">
+      <input type="text" name="query" placeholder="Enter food name (e.g., banana)" required>
+      <input type="number" name="servingSize" placeholder="Serving size (optional)" min="0" step="0.1">
+      <select name="unit">
+        <option value="g">Grams (g)</option>
+        <option value="oz">Ounces (oz)</option>
+        <option value="lb">Pounds (lb)</option>
+        <option value="kg">Kilograms (kg)</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+
+    <% if (error) { %>
+      <div class="error">
+        <p><%= error %></p>
+      </div>
+    <% } %>
+
+    <% if (food) { %>
+      <div class="result">
+        <h2><%= food.description %></h2>
+        <p><strong>Serving Size:</strong> <%= food.servingSize %> <%= food.servingSizeUnit %></p>
+        <p><strong>Calories:</strong> <%= food.calories || 'N/A' %> kcal</p>
+        <p><strong>Protein:</strong> <%= food.protein || 'N/A' %> g</p>
+        <p><strong>Carbs:</strong> <%= food.carbs || 'N/A' %> g</p>
+        <p><strong>Fat:</strong> <%= food.fat || 'N/A' %> g</p>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>
