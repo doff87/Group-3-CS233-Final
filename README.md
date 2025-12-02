@@ -6,8 +6,8 @@ Dannika and Amandaleeanne worked in Figma for planning out the Presentation of t
 
 Dannika worked on implementing the client side looks of the application (Client side and folder)
 
-You can refer to the planning of the Figma design here:
-https://www.figma.com/design/1Go7Kibzn3ZIlcXXexVATO/CS233-Final?node-id=0-1&p=f&t=CSgbBWftpDXAwxHB-0
+You can refer to the planning of the Figma design here (Please note that Skyhighflying is Amandaleeanne):
+https://www.figma.com/files/team/1570910379660836046/project/497671790/Team-project?fuid=1246581862560174722
 
 Joel and David worked on the Application layer and implementation of API's and the business logic controlling what happens when something in the client is interacted with.
 
