@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, Search, Loader2 } from 'lucide-react';
 import { searchFoods } from '../utils/foodApi';
 import { Food } from '../types';
@@ -17,20 +17,38 @@ export const AddFoodModal = ({ onClose, selectedDate, isPlanned = false }: AddFo
   const [selectedFood, setSelectedFood] = useState<Food | null>(null);
   const [servings, setServings] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const date = selectedDate || new Date().toISOString().split('T')[0];
 
-  useEffect(() => {
-    loadFoods('');
-  }, []);
-
   const loadFoods = async (query: string) => {
+    const trimmed = query.trim();
+    if (!trimmed) {
+      setError('Enter a food name to search the USDA database.');
+      setFoods([]);
+      setSelectedFood(null);
+      setHasSearched(false);
+      return;
+    }
+
     setLoading(true);
+    setError(null);
+    setHasSearched(true);
+
     try {
-      const results = await searchFoods(query);
+      const results = await searchFoods(trimmed);
       setFoods(results);
-    } catch (error) {
-      console.error('Error loading foods:', error);
+      if (!results.length) {
+        setSelectedFood(null);
+        setError('No foods matched that search.');
+      }
+    } catch (err) {
+      console.error('Error loading foods:', err);
+      setFoods([]);
+      setSelectedFood(null);
+      const message = err instanceof Error ? err.message : 'Unable to fetch foods right now.';
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -91,6 +109,11 @@ export const AddFoodModal = ({ onClose, selectedDate, isPlanned = false }: AddFo
               Search
             </button>
           </form>
+          {error && (
+            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
         </div>
 
         {/* Food List */}
@@ -98,6 +121,10 @@ export const AddFoodModal = ({ onClose, selectedDate, isPlanned = false }: AddFo
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <Loader2 className="animate-spin text-red-400" size={32} />
+            </div>
+          ) : foods.length === 0 ? (
+            <div className="py-8 text-center text-gray-500">
+              {hasSearched ? 'Adjust your search and try again.' : 'Search for a food name to pull live nutrition data.'}
             </div>
           ) : (
             <div className="space-y-2">
@@ -112,9 +139,8 @@ export const AddFoodModal = ({ onClose, selectedDate, isPlanned = false }: AddFo
                   }`}
                 >
                   <div className="text-gray-800">{food.name}</div>
-                  <div className="text-sm text-gray-600 mt-1">
-                    {food.servingSize} - {food.nutrition.calories} cal, 
-                    P: {food.nutrition.protein}g, C: {food.nutrition.carbs}g, F: {food.nutrition.fats}g
+                  <div className="mt-1 text-sm text-gray-600">
+                    {food.servingSize} - {food.nutrition.calories} cal, P: {food.nutrition.protein}g, C: {food.nutrition.carbs}g, F: {food.nutrition.fats}g
                   </div>
                 </button>
               ))}
