@@ -1,29 +1,37 @@
-import { MealModel } from "../models/meal.js";
+import { MealModel } from '../models/meal.js';
 
-const normalizeUnit = (value = "g") => value.toLowerCase();
+// Helper to normalise a serving unit to lower case. Default unit is grams.
+const normalizeUnit = (value = 'g') => value.toLowerCase();
 
 export const mealController = {
+  // GET /api/meals
+  // Returns a list of all stored meals. At present the data lives in
+  // memory; the database layer will replace this once implemented.
   list: (req, res) => {
     const meals = MealModel.findAll();
     res.json(meals);
   },
 
-  getById: (req, res) => {
+  // GET /api/meals/:id
+  // Fetch a single meal by its UUID. If the meal is not found, pass a
+  // 404 error to the error handler.
+  getById: (req, res, next) => {
     const meal = MealModel.findById(req.params.id);
     if (!meal) {
-      return res.status(404).json({ error: "Meal not found" });
+      const error = new Error('Meal not found');
+      error.statusCode = 404;
+      return next(error);
     }
     res.json(meal);
   },
 
+  // POST /api/meals
+  // Create a new meal. Field validation happens in middleware
+  // validateMealCreation.
   create: (req, res) => {
-    const { foodName, foodId, servingSize, servingUnit = "g", servings = 1, nutrition, date, isPlanned = false } =
-      req.body || {};
+    const { foodName, foodId, servingSize, servingUnit = 'g', servings = 1, nutrition, date, isPlanned = false } = req.body || {};
 
-    if (!foodName || !nutrition) {
-      return res.status(400).json({ error: "foodName and nutrition are required" });
-    }
-
+    // Build the payload using the provided values. The unit is normalised.
     const payload = {
       foodId,
       foodName,
@@ -39,7 +47,11 @@ export const mealController = {
     res.status(201).json(meal);
   },
 
-  update: (req, res) => {
+  // PUT /api/meals/:id
+  // Update a meal by id. Validation of provided fields happens in
+  // validateMealUpdate. If the meal does not exist a 404 error is
+  // forwarded to the error handler.
+  update: (req, res, next) => {
     const updates = { ...req.body };
     if (updates.servingUnit) {
       updates.servingUnit = normalizeUnit(updates.servingUnit);
@@ -47,15 +59,22 @@ export const mealController = {
 
     const meal = MealModel.update(req.params.id, updates);
     if (!meal) {
-      return res.status(404).json({ error: "Meal not found" });
+      const error = new Error('Meal not found');
+      error.statusCode = 404;
+      return next(error);
     }
     res.json(meal);
   },
 
-  remove: (req, res) => {
+  // DELETE /api/meals/:id
+  // Remove a meal by id. If the meal does not exist a 404 error is
+  // forwarded to the error handler.
+  remove: (req, res, next) => {
     const removed = MealModel.remove(req.params.id);
     if (!removed) {
-      return res.status(404).json({ error: "Meal not found" });
+      const error = new Error('Meal not found');
+      error.statusCode = 404;
+      return next(error);
     }
     res.status(204).send();
   },
