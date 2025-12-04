@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNutrition } from '../context/NutritionContext';
+import { useAuth } from '../context/AuthContext';
 
 interface WelcomeScreenProps {
   onComplete: () => void;
@@ -17,20 +18,34 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
     fats: 65,
   });
 
-  const handleLogin = (e: React.FormEvent) => {
+  const { login, register } = useAuth();
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     if (!username || !password) {
-      alert('Please enter username and password');
+      setError('Please enter username and password');
       return;
     }
-    // Simulate login - in production this would verify credentials
+    const res = await login(username, password);
+    if (!res.ok) {
+      setError(res.message || 'Invalid credentials');
+      return;
+    }
     onComplete();
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     if (!username || !password) {
-      alert('Please enter username and password');
+      setError('Please enter username and password');
+      return;
+    }
+    const res = await register(username, password);
+    if (!res.ok) {
+      setError(res.message || 'Unable to create account');
       return;
     }
     updateDailyGoals(goals);
@@ -54,6 +69,9 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
         <div className="bg-gradient-to-br from-red-400 to-red-500 rounded-3xl p-8 shadow-xl">
           {mode === 'login' ? (
             <form onSubmit={handleLogin} className="space-y-6">
+              {error && (
+                <div className="bg-white text-red-500 p-2 rounded">{error}</div>
+              )}
               <div>
                 <label className="block text-white mb-2">
                   Username
@@ -97,6 +115,9 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             </form>
           ) : (
             <form onSubmit={handleSignup} className="space-y-6">
+              {error && (
+                <div className="bg-white text-red-500 p-2 rounded">{error}</div>
+              )}
               <div>
                 <label className="block text-white mb-2">
                   Username

@@ -43,9 +43,10 @@ export const AddCustomFoodModal = ({ onClose, selectedDate, isPlanned = false }:
       },
       date,
       isPlanned,
+    }).then(() => onClose()).catch(err => {
+      console.error('Failed to add custom meal', err);
+      alert(err instanceof Error ? err.message : String(err));
     });
-
-    onClose();
   };
 
   return (

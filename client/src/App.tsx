@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NutritionProvider } from './context/NutritionContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { WelcomeScreen } from './components/WelcomeScreen';
 import { Dashboard } from './components/Dashboard';
 import { WeeklyOverview } from './components/WeeklyOverview';
@@ -11,11 +12,14 @@ type Screen = 'welcome' | 'dashboard' | 'weekly' | 'calendar';
 function AppContent() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('welcome');
 
+  const auth = useAuth();
+
   const handleSignOut = () => {
+    auth.logout();
     setCurrentScreen('welcome');
   };
 
-  if (currentScreen === 'welcome') {
+  if (!auth.isAuthenticated) {
     return <WelcomeScreen onComplete={() => setCurrentScreen('dashboard')} />;
   }
 
@@ -91,8 +95,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <NutritionProvider>
-      <AppContent />
-    </NutritionProvider>
+    <AuthProvider>
+      <NutritionProvider>
+        <AppContent />
+      </NutritionProvider>
+    </AuthProvider>
   );
 }

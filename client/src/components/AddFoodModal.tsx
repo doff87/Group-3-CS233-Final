@@ -61,7 +61,7 @@ export const AddFoodModal = ({ onClose, selectedDate, isPlanned = false }: AddFo
 
   const handleAddFood = () => {
     if (!selectedFood) return;
-
+    // Create meal on server and close modal on success
     addMeal({
       foodId: selectedFood.id,
       foodName: selectedFood.name,
@@ -70,9 +70,10 @@ export const AddFoodModal = ({ onClose, selectedDate, isPlanned = false }: AddFo
       nutrition: selectedFood.nutrition,
       date,
       isPlanned,
+    }).then(() => onClose()).catch(err => {
+      console.error('Failed to add meal', err);
+      setError(err instanceof Error ? err.message : String(err));
     });
-
-    onClose();
   };
 
   return (

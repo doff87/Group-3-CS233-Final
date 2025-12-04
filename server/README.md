@@ -42,7 +42,16 @@ Meals are currently stored in-memory through `MealModel`, but the abstraction mi
 
 1. Copy `.env.example` to `.env` and set `FDC_API_KEY` to a valid USDA FoodData Central API key. Optionally override `PORT` if you want the API to listen on a different port (defaults to `3000`).
 2. Install dependencies: `npm install`.
-3. Start the Express API server: `npm run server` (serves `GET /api/nutrition`).
+3. Run migrations (recommended) and start the Express API server:
+
+```bash
+npm run db:migrate
+npm run dev
+```
+
+If you are testing locally without Postgres, the server falls back to SQLite and will sync models automatically in development mode.
 4. In a second terminal start the Vite client: `npm run dev` (opens on [http://localhost:5173](http://localhost:5173)).
 
 During development the Vite dev server proxies every `/api/*` request to the Express server, so the React app can simply call `/api/nutrition?...` without worrying about CORS or port numbers. When deploying, run `npm run build` and serve the generated `dist` directory with the Express app or any static host, keeping the API server online.
+
+Note: In production environments you should apply migrations (`npm run db:migrate`) as part of your CI/CD pipeline rather than relying on `sequelize.sync()`.

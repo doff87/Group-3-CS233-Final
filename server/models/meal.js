@@ -33,6 +33,10 @@ const Meal = sequelize.define('Meal', {
     type: DataTypes.JSONB,
     allowNull: true,
   },
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: true,
+  },
   date: {
     type: DataTypes.DATEONLY,
     allowNull: false,
