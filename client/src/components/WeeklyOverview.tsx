@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNutrition } from '../context/NutritionContext';
+import { toLocalDateString } from '../utils/date';
 
 export const WeeklyOverview = () => {
   const { meals, dailyGoals } = useNutrition();
@@ -29,7 +30,7 @@ export const WeeklyOverview = () => {
   };
 
   const getDayData = (date: Date) => {
-    const dateStr = date.toISOString().split('T')[0];
+    const dateStr = toLocalDateString(date);
     const dayMeals = meals.filter(meal => meal.date === dateStr && !meal.isPlanned);
     
     return dayMeals.reduce(
@@ -184,7 +185,7 @@ export const WeeklyOverview = () => {
         <div className="space-y-3">
           {weekData.map(({ date, data }) => (
             <div
-              key={date.toISOString()}
+              key={toLocalDateString(date)}
               className={`rounded-xl p-4 ${
                 isToday(date)
                   ? 'bg-gradient-to-br from-red-100 to-red-200 border-2 border-red-400'

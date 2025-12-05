@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Trash2, Plus, Calendar } from 'lucide-react';
 import { useNutrition } from '../context/NutritionContext';
+import { toLocalDateString } from '../utils/date';
 import { AddFoodModal } from './AddFoodModal';
 import { AddCustomFoodModal } from './AddCustomFoodModal';
 
@@ -23,7 +24,7 @@ export const DayDetailModal = ({ date, onClose }: DayDetailModalProps) => {
     day: 'numeric',
   });
 
-  const todayStr = new Date().toISOString().split('T')[0];
+  const todayStr = toLocalDateString();
   const isPastOrToday = date <= todayStr;
 
   // Logged meals

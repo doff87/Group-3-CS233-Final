@@ -4,6 +4,7 @@ import { AddFoodModal } from './AddFoodModal';
 import { AddCustomFoodModal } from './AddCustomFoodModal';
 import { useNutrition } from '../context/NutritionContext';
 import { Plus, Utensils } from 'lucide-react';
+import { toLocalDateString } from '../utils/date';
 
 export const Dashboard = () => {
   const { meals, dailyGoals } = useNutrition();
@@ -11,7 +12,7 @@ export const Dashboard = () => {
   const [showCustomFoodModal, setShowCustomFoodModal] = useState(false);
 
   // Get today's date in ISO format
-  const today = new Date().toISOString().split('T')[0];
+  const today = toLocalDateString();
 
   // Calculate today's totals
   const todaysMeals = meals.filter(meal => meal.date === today && !meal.isPlanned);

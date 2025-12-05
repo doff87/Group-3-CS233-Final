@@ -3,6 +3,7 @@ import { X, Search, Loader2 } from 'lucide-react';
 import { searchFoods } from '../utils/foodApi';
 import { Food } from '../types';
 import { useNutrition } from '../context/NutritionContext';
+import { toLocalDateString } from '../utils/date';
 
 interface AddFoodModalProps {
   onClose: () => void;
@@ -20,7 +21,7 @@ export const AddFoodModal = ({ onClose, selectedDate, isPlanned = false }: AddFo
   const [error, setError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
-  const date = selectedDate || new Date().toISOString().split('T')[0];
+  const date = selectedDate || toLocalDateString();
 
   const loadFoods = async (query: string) => {
     const trimmed = query.trim();

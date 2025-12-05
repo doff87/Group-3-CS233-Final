@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { useNutrition } from '../context/NutritionContext';
+import { toLocalDateString } from '../utils/date';
 
 interface AddCustomFoodModalProps {
   onClose: () => void;
@@ -20,7 +21,7 @@ export const AddCustomFoodModal = ({ onClose, selectedDate, isPlanned = false }:
     fats: 0,
   });
 
-  const date = selectedDate || new Date().toISOString().split('T')[0];
+  const date = selectedDate || toLocalDateString();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
