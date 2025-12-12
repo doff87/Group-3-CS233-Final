@@ -4,7 +4,7 @@ A production-ready, full-stack web application for tracking daily nutrition acro
 
 This project is intended to meet all CS233 Final Project requirements. For full audit of features, please see [`ARCHITECTURE_AUDIT.md`](./ARCHITECTURE_AUDIT.md)
 
-**Note to Instructor: This project is not hosted on AWS as discussed with Professor Ferguson and Amandaleeanne**
+**Note to Instructor: This project is not hosted on AWS per discussion with Professor Ferguson and Amandaleeanne**
 
 ---
 
