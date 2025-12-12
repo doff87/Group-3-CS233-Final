@@ -2,20 +2,7 @@
 
 A production-ready, full-stack web application for tracking daily nutrition across multiple users. Built with React, Node.js, and PostgreSQL following MVC/CRUD/RESTful patterns.
 
-## ✅ Requirements Compliance
-
-This project meets all CS233 Final Project requirements:
-
-- ✅ **3-Tier Architecture** – Client (React Vite) / Server (Express) / Database (PostgreSQL)
-- ✅ **AWS Hosting Ready** – RDS PostgreSQL support, migrations for CI/CD, environment-driven config
-- ✅ **Multi-User Management** – JWT auth, bcryptjs hashing, per-user data isolation
-- ✅ **MVC/CRUD/RESTful** – Strict adherence to conventions, standard HTTP methods
-- ✅ **Browser Interaction** – Full React UI with sign-in, dashboard, weekly view, calendar
-- ✅ **Public API** – Documented REST endpoints with protected + public routes
-- ✅ **External API** – USDA FoodData Central integration for food search
-- ✅ **Good Coding Practices** – Conventions, error handling, DRY, security (JWT, bcrypt, CORS)
-
-**Full audit:** See [`ARCHITECTURE_AUDIT.md`](./ARCHITECTURE_AUDIT.md)
+This project is intended to meet all CS233 Final Project requirements. For full audit of features, please see [`ARCHITECTURE_AUDIT.md`](./ARCHITECTURE_AUDIT.md)
 
 ---
 
