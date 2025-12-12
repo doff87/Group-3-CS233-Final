@@ -4,6 +4,10 @@ A production-ready, full-stack web application for tracking daily nutrition acro
 
 This project is intended to meet all CS233 Final Project requirements. For full audit of features, please see [`ARCHITECTURE_AUDIT.md`](./ARCHITECTURE_AUDIT.md)
 
+For the figma design file done by Amandaleeanne and Dannika please see:
+https://www.figma.com/design/1Go7Kibzn3ZIlcXXexVATO/Foodie-Design-created-by-Dannika?node-id=0-1&p=f&t=mlxeTJLUMS6O5fyi-0
+and https://www.figma.com/files/team/1570910379660836046/project/497671790/Team-project?fuid=1570910162677171362
+
 ---
 
 ## Project Structure
